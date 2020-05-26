@@ -1,0 +1,38 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    list-style-type: none;
+    font-weight: 700;
+    background-color: #7878d0;
+    width: 460px;
+    margin: auto;
+}
+
+    .navbar li {
+        display: inline-block;
+        position: relative;
+        background-color: #2a2ae8;
+        /*    margin-left: -4px;*/
+        /*    height: 40px;*/
+    }
+
+    .navbar a {
+        width: 100px;
+        color: aliceblue;
+        text-decoration: none;
+        text-align: center;
+        padding: 20px 6px;
+        display: block;
+    }
+
+
+    .navbar li:hover {
+        background-color: #6868f9;
+    }
+
+    .navbar ul {
+        display: none;
+    }

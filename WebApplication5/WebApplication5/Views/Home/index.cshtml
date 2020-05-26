@@ -1,0 +1,63 @@
+﻿@using WebApplication5.Pagination
+@using WebApplication5.Helpers
+@model IndexViewModel
+
+@{
+    ViewBag.Title = "Home page";
+}
+
+@*это представление не используется в данном проекте*@
+
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            @Html.DisplayName("Название")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Price)*@
+            @Html.DisplayName("Цена")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.CategoryId)*@
+            @Html.DisplayName("Название категории")
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.CategoryId)*
+                @Html.DisplayName("Страна производитель")
+            </th>*@
+        <th></th>
+    </tr>
+
+    @*@foreach (var item in Model.Goods)
+        {
+            @Html.Partial("_GoodSummary", item)
+        }*@
+
+    @foreach (var item in Model.Goods)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<br />
+<div class="btn-group">
+    @*@Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))*@
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x, category = Model.SelectedCategory }))
+</div>
+
+
+@*это представление не используется в данном проекте*@

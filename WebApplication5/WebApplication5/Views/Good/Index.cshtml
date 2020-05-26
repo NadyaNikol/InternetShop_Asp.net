@@ -1,0 +1,104 @@
+﻿@using WebApplication5.Pagination
+@using WebApplication5.Helpers
+@model IndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+
+@using (Ajax.BeginForm("GoodSearch", new AjaxOptions
+{
+    UpdateTargetId = "results",
+    LoadingElementId = "loading",
+    LoadingElementDuration = 1000,
+    OnBegin = "OnBegin",
+    OnComplete = "OnComplete",
+    OnFailure = "OnFailure",
+    OnSuccess = "OnSuccess"
+}))
+
+{
+    <input type="text" name="name" />
+    <input type="submit" value="Поиск" />
+}
+
+<img id="loading" style="display:none; width:100px; height:100px;" src="~/Content/images/cat.gif" />
+<div id="results"></div>
+
+
+<script>
+    function OnBegin() {
+        alert("Начато выполнение запроса");
+    }
+    function OnFailure(request, error) {
+        $("#results").html("<h4 style='color: red;'><i>Товары с данным именем не содержаться в базе</i></h4>");
+    }
+
+    function OnSuccess(data) {
+        alert("Получены следующие данные: \n" + data);
+    }
+
+    function OnComplete(request, status) {
+        alert("Status: " + status);
+    }
+</script>
+
+
+
+<p>
+    @Html.ActionLink("Create New", "CreateGood")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            @Html.DisplayName("Название")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Price)*@
+            @Html.DisplayName("Цена")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.CategoryId)*@
+            @Html.DisplayName("Название категории")
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.CategoryId)*
+                @Html.DisplayName("Страна производитель")
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Goods)
+    {
+        @Html.Partial("_GoodSummary", item)
+    }
+
+    @*@foreach (var item in Model.Goods)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+            </tr>
+            <div></div>
+        }*@
+
+</table>
+
+<br />
+<div class="btn-group">
+    @*@Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))*@
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x, category = Model.SelectedCategory }))
+</div>
+
+
+

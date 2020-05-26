@@ -1,0 +1,55 @@
+﻿@using WebApplication5.CartFolder
+@model CartIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Ваша корзина</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Количество</th>
+            <th class="text-right">Цена</th>
+            <th class="text-right">Общая цена</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (CartItem item in Model.Cart.CartItems)
+        {
+            <tr>
+                <td>@item.Good.Title</td>
+                <td>@item.Quantity</td>
+                <td class="text-right">@item.Good.Price</td>
+                <td class="text-right">@((item.Good.Price * @item.Quantity).ToString("# грн."))</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("id", item.Good.ID)
+                        @Html.HiddenFor(model => model.ReturnUrl)
+                        <input type="submit" value="Удалить" class="btn btn-sm btn-warning" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Итого:</td>
+            <td>
+                @Model.Cart.CalculateTotalValue().ToString("# грн.")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+    @*@Html.ActionLink("Продолжить покупки", "Index", "Good", new {@class = "btn btn-primary" }, new { @Model.ReturnUrl })*@
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Продолить покупки</a>
+</div>
+
+
+

@@ -1,0 +1,12 @@
+﻿@model WebApplication5.CartFolder.Cart
+
+<div class="navbar-right">
+    @Html.ActionLink("Заказать", "Index", "Cart",
+    new { retutrUrl = Request.Url.PathAndQuery}, new {@class = "btn btn-default navbar-btn" })
+</div>
+<div class="navbar-text navbar-right">
+    <b>Ваша корзина:</b>
+    @Model.CartItems.Sum(g => g.Quantity) товаров,
+    @Model.CalculateTotalValue().ToString("# грн.")
+</div>
+

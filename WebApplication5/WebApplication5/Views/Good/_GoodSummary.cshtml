@@ -1,0 +1,22 @@
+﻿@using WebApplication5.Models
+@model Good
+
+<div class="well">
+    <h3>
+        <strong>
+            @Model.Title
+        </strong>
+        <span class="pull-right label label-primary">@Model.Price.ToString("# грн.")</span>
+
+    </h3>
+    @using (Html.BeginForm("AddToCart", "Cart"))
+    {
+        <div class="pull-right">
+            @Html.HiddenFor(x => x.ID)
+            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+            <input type="submit" value="Добавить в корзину" class="btn btn-success" />
+        </div>
+    }
+    <span class="lead">@Model.Title</span>
+</div>
+
